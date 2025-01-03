@@ -314,7 +314,99 @@ public class Main {
     }
 
     private static void editSetDetails(Collection collection, LegoSet set) {
-        
+        while (true) {
+            System.out.println("\nEdit Set Details:");
+            System.out.println("1) Edit name");
+            System.out.println("2) Edit pieces");
+            System.out.println("3) Edit price");
+            System.out.println("4) Edit status");
+            System.out.println("5) Edit theme");
+            System.out.println("6) Back to set details");
+            System.out.print("\nSelect an option: ");
+            
+            String choice = System.console().readLine();
+            
+            switch (choice) {
+                case "1" -> {
+                    System.out.print("Enter new name: ");
+                    String newName = System.console().readLine();
+                    set.name = newName;
+                }
+                case "2" -> {
+                    System.out.print("Enter new piece count: ");
+                    try {
+                        int newPieces = Integer.parseInt(System.console().readLine());
+                        set.pieces = newPieces;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid number format. Please try again.");
+                        continue;
+                    }
+                }
+                case "3" -> {
+                    System.out.print("Enter new price: ");
+                    try {
+                        float newPrice = Float.parseFloat(System.console().readLine());
+                        set.price = newPrice;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid price format. Please try again.");
+                        continue;
+                    }
+                }
+                case "4" -> {
+                    System.out.println("Available statuses:");
+                    for (Status status : Status.values()) {
+                        System.out.println("- " + status);
+                    }
+                    System.out.print("Enter new status: ");
+                    try {
+                        Status newStatus = Status.valueOf(System.console().readLine().toUpperCase());
+                        set.status = newStatus;
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid status. Please try again.");
+                        continue;
+                    }
+                }
+                case "5" -> {
+                    System.out.print("Enter new theme: ");
+                    String newTheme = System.console().readLine();
+                    set.theme = newTheme;
+                }
+                case "6" -> {
+                    ArrayList<Collection> collections = fileManager.getData();
+                    int index = -1;
+                    for (int i = 0; i < collections.size(); i++) {
+                        if (collections.get(i).name.equals(collection.name)) {
+                            index = i;
+                            break;
+                        }
+                    }
+                    if (index != -1) {
+                        collections.set(index, collection);
+                        fileManager.saveData(collections);
+                    }
+                    viewSetDetails(collection);
+                    return;
+                }
+                default -> {
+                    System.out.println("Invalid option selected.");
+                    continue;
+                }
+            }
+            
+            ArrayList<Collection> collections = fileManager.getData();
+            int index = -1;
+            for (int i = 0; i < collections.size(); i++) {
+                if (collections.get(i).name.equals(collection.name)) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index != -1) {
+                collections.set(index, collection);
+                fileManager.saveData(collections);
+            }
+            System.out.println("Set updated successfully.");
+        }
     }
 
     private static void filterSetsByTheme(Collection collection) {
