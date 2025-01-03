@@ -218,7 +218,35 @@ public class Main {
     }
 
     private static void removeSetFromCollection(Collection collection) {
+        if (collection.sets.isEmpty()) {
+            System.out.println("No sets to remove.");
+            manageCollection(collection);
+            return;
+        }
 
+        System.out.print("\nEnter set number to remove: ");
+        try {
+            int index = Integer.parseInt(System.console().readLine()) - 1;
+            if (index >= 0 && index < collection.sets.size()) {
+                LegoSet removedSet = collection.sets.remove(index);
+                
+                ArrayList<Collection> collections = fileManager.getData();
+                for (Collection c : collections) {
+                    if (c.name.equals(collection.name)) {
+                        c.sets = collection.sets;
+                        break;
+                    }
+                }
+                fileManager.saveData(collections);
+                
+                System.out.println("Set '" + removedSet.name + "' removed successfully!");
+            } else {
+                System.out.println("Invalid set number.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a number.");
+        }
+        manageCollection(collection);
     }
 
     private static void viewSetDetails(Collection collection) {
@@ -251,7 +279,26 @@ public class Main {
     }
 
     private static void removeCollection() {
+        ArrayList<Collection> collections = fileManager.getData();
+        System.out.print("\nEnter collection number to remove: ");
 
+        try {
+            int index = Integer.parseInt(System.console().readLine()) - 1;
+
+            if (index >= 0 && index < collections.size()) {
+                String removedName = collections.get(index).name;
+                collections.remove(index);
+                fileManager.saveData(collections);
+                System.out.println("Collection '" + removedName + "' removed successfully.");
+            } else {
+                System.out.println("Invalid collection number.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a number.");
+        }
+        
+        System.out.println();
+        displayCollections();
     }
 
     private static void quickSearch() {
