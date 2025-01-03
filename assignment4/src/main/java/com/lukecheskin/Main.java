@@ -88,7 +88,20 @@ public class Main {
     }
 
     private static void startCreateCollectionWorkflow() {
+        System.out.println("\nCreating a new collection..");
+        System.out.print("Collection name: ");
 
+        String collectionName = System.console().readLine();
+        Collection collection = new Collection(collectionName);
+        ArrayList<Collection> collections = fileManager.getData();
+
+        collections.add(collection);
+        fileManager.saveData(collections);
+        
+        System.out.println("Collection created: " + collection.name);
+        System.out.println();
+
+        displayCollections();
     }
 
     private static void removeCollection() {
