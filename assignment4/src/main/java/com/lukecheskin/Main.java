@@ -414,7 +414,26 @@ public class Main {
     }
 
     private static void editCollectionName(Collection collection) {
+        System.out.println("\nCurrent collection name: " + collection.name);
+        System.out.print("Enter new name: ");
+        String newName = System.console().readLine();
         
+        
+        ArrayList<Collection> collections = fileManager.getData();
+        int index = -1;
+        for (int i = 0; i < collections.size(); i++) {
+            if (collections.get(i).name.equals(collection.name)) {
+                collection.name = newName;
+                index = i;
+                break;
+            }
+        }
+        if (index != -1) {
+            collections.set(index, collection);
+            fileManager.saveData(collections);
+            System.out.println("Collection name updated successfully.");
+        }
+        manageCollection(collection);
     }
 
     private static void startCreateCollectionWorkflow() {
