@@ -499,7 +499,36 @@ public class Main {
     }
 
     private static void quickSearch() {
-
+        ArrayList<Collection> collections = fileManager.getData();
+        
+        if (collections.isEmpty()) {
+            System.out.print("\nPress Enter to continue...");
+            System.console().readLine();
+            main(null);
+            return;
+        }
+        
+        System.out.print("\nEnter set number to search for: ");
+        String setNumber = System.console().readLine();
+        boolean found = false;
+        
+        System.out.println("\nSearch results:");
+        for (Collection collection : collections) {
+            for (LegoSet set : collection.sets) {
+                if (set.setNumber.equals(setNumber)) {
+                    System.out.println("Found in collection '" + collection.name + "': " + set.name);
+                    found = true;
+                }
+            }
+        }
+        
+        if (!found) {
+            System.out.println("No sets found with set number: " + setNumber);
+        }
+        
+        System.out.print("\nPress Enter to continue...");
+        System.console().readLine();
+        main(null);
     }
 
     private static void exportToCSV() {
