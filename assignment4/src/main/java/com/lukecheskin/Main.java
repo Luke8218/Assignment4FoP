@@ -267,7 +267,54 @@ public class Main {
     }
 
     private static void viewSetDetails(Collection collection) {
+        System.out.print("\nEnter set number (1-" + collection.sets.size() + "): ");
+        try {
+            int setIndex = Integer.parseInt(System.console().readLine()) - 1;
+            if (setIndex >= 0 && setIndex < collection.sets.size()) {
+                LegoSet set = collection.sets.get(setIndex);
+                System.out.println("\nSet Details:");
+                System.out.println("Set Number: " + set.setNumber);
+                System.out.println("Name: " + set.name);
+                System.out.println("Theme: " + set.theme);
+                System.out.println("Pieces: " + set.pieces);
+                System.out.println("Price: £" + set.price);
+                System.out.println("Status: " + set.status);
+                
+                System.out.println("\nOptions:");
+                System.out.println("1) Edit set details");
+                System.out.println("2) Back to collection");
+                System.out.print("\nSelect an option: ");
+                
+                String choice = System.console().readLine();
+                switch (choice) {
+                    case "1" -> editSetDetails(collection, set);
+                    case "2" -> manageCollection(collection);
+                    default -> {
+                        System.out.println("Invalid option selected.");
+                        viewSetDetails(collection);
+                    }
+                }
+                
+                if (set.minifigures != null && !set.minifigures.isEmpty()) {
+                    System.out.println("\nMinifigures:");
+                    for (Minifigure fig : set.minifigures) {
+                        System.out.println("- " + fig.name + ": " + fig.description);
+                    }
+                }
+            } else {
+                System.out.println("Invalid set number.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a number.");
+        }
+        
+        System.out.print("\nPress Enter to continue...");
+        System.console().readLine();
+        manageCollection(collection);
+    }
 
+    private static void editSetDetails(Collection collection, LegoSet set) {
+        
     }
 
     private static void filterSetsByTheme(Collection collection) {
