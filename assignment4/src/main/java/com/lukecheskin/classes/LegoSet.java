@@ -33,4 +33,12 @@ public class LegoSet {
         this.status = status;
         this.theme = theme;
     }
+
+    public ArrayList<Minifigure> getMinifigures() {
+        return minifigures;
+    }
+
+    public void setMinifigures(ArrayList<Minifigure> minifigures) {
+        this.minifigures = minifigures;
+    }
 }

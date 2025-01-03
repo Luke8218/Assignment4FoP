@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.google.gson.JsonObject;
 import com.lukecheskin.classes.Collection;
 import com.lukecheskin.classes.LegoSet;
+import com.lukecheskin.classes.Minifigure;
 import com.lukecheskin.classes.Status;
 import com.lukecheskin.utils.FileManager;
 import com.lukecheskin.utils.RebrickableClient;
@@ -214,7 +215,23 @@ public class Main {
     }
 
     private static void addMinifiguresToSet(LegoSet set) {
+        ArrayList<Minifigure> minifigures = new ArrayList<>();
+        boolean addMore = true;
         
+        while (addMore) {
+            System.out.print("\nMinifigure name: ");
+            String name = System.console().readLine();
+            
+            System.out.print("Minifigure description: ");
+            String description = System.console().readLine();
+            
+            minifigures.add(new Minifigure(name, description));
+            
+            System.out.print("Add another minifigure? (y/n): ");
+            addMore = System.console().readLine().toLowerCase().equals("y");
+        }
+        
+        set.setMinifigures(minifigures);
     }
 
     private static void removeSetFromCollection(Collection collection) {
@@ -296,7 +313,7 @@ public class Main {
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a number.");
         }
-        
+
         System.out.println();
         displayCollections();
     }
