@@ -1,5 +1,7 @@
 package com.lukecheskin;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import com.google.gson.JsonObject;
@@ -481,6 +483,40 @@ public class Main {
     }
 
     private static void exportToCSV() {
+        ArrayList<Collection> collections = fileManager.getData();
         
+        if (collections.isEmpty()) {
+            main(null);
+            return;
+        }
+        
+        String csvContent = "Collection,Set Number,Name,Theme,Pieces,Price,Status,Minifigure Name,Minifigure Description\n";
+        
+        for (Collection collection : collections) {
+            for (LegoSet set : collection.sets) {
+                if (set.minifigures != null && !set.minifigures.isEmpty()) {
+                    for (Minifigure fig : set.minifigures) {
+                        csvContent += String.format("\"%s\",\"%s\",\"%s\",\"%s\",%d,%.2f,\"%s\",\"%s\",\"%s\"\n",
+                            collection.name, set.setNumber, set.name, set.theme, set.pieces, 
+                            set.price, set.status, fig.name, fig.description);
+                    }
+                } else {
+                    csvContent += String.format("\"%s\",\"%s\",\"%s\",\"%s\",%d,%.2f,\"%s\",,\n",
+                        collection.name, set.setNumber, set.name, set.theme, set.pieces, 
+                        set.price, set.status);
+                }
+            }
+        }
+        
+        try {
+            Files.write(Paths.get("lego_collections.csv"), csvContent.getBytes());
+            System.out.println("\nData successfully exported to lego_collections.csv");
+        } catch (Exception e) {
+            System.out.println("\nError exporting to CSV: " + e.getLocalizedMessage());
+        }
+        
+        System.out.print("\nPress Enter to continue...");
+        System.console().readLine();
+        main(null);
     }
 }
