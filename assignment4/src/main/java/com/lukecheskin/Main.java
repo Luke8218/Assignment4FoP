@@ -412,7 +412,27 @@ public class Main {
     }
 
     private static void filterSetsByTheme(Collection collection) {
-
+        System.out.print("\nEnter theme to filter by: ");
+        String theme = System.console().readLine();
+        
+        System.out.println("\nSets matching theme '" + theme + "':");
+        boolean found = false;
+        
+        for (LegoSet set : collection.sets) {
+            if (set.theme.toLowerCase().contains(theme.toLowerCase())) {
+                String displayIndex = String.valueOf(collection.sets.indexOf(set) + 1);
+                System.out.println(displayIndex + ") " + set.name + " (#" + set.setNumber + ") (" + set.theme + ")");
+                found = true;
+            }
+        }
+        
+        if (!found) {
+            System.out.println("No sets found with the specified theme.");
+        }
+        
+        System.out.print("\nPress Enter to continue...");
+        System.console().readLine();
+        manageCollection(collection);
     }
 
     private static void editCollectionName(Collection collection) {
