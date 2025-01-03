@@ -2,9 +2,12 @@ package com.lukecheskin;
 
 import java.util.ArrayList;
 
+import com.google.gson.JsonObject;
 import com.lukecheskin.classes.Collection;
 import com.lukecheskin.classes.LegoSet;
+import com.lukecheskin.classes.Status;
 import com.lukecheskin.utils.FileManager;
+import com.lukecheskin.utils.RebrickableClient;
 
 public class Main {
     static FileManager fileManager = new FileManager();
@@ -118,7 +121,100 @@ public class Main {
     }
 
     private static void addSetToCollection(Collection collection) {
+        System.out.println("\nAdding new set to " + collection.name);
+        
+        System.out.print("Set number: ");
+        String setNumber = System.console().readLine();
+        
+        String setName;
+        int pieces;
+        String theme;
+        
+        // Try to fetch set info from Rebrickable
+        try {
+            RebrickableClient client = new RebrickableClient();
+            JsonObject setInfo = client.getSetInfo(setNumber);
+            
+            setName = setInfo.get("name").getAsString();
+            pieces = setInfo.get("num_parts").getAsInt();
+            int themeId = setInfo.get("theme_id").getAsInt();
+            
+            // Fetch theme information
+            JsonObject themeInfo = client.getThemeInfo(themeId);
+            theme = themeInfo.get("name").getAsString();
+            
+            System.out.println("\nFound set information:");
+            System.out.println("Name: " + setName);
+            System.out.println("Pieces: " + pieces);
+            System.out.println("Theme: " + theme);
+            System.out.print("Use this information? (Y/N): ");
+            
+            String useInfo = System.console().readLine();
+            if (!useInfo.equalsIgnoreCase("Y")) {
+                System.out.print("Set name: ");
+                setName = System.console().readLine();
+                
+                System.out.print("Number of pieces: ");
+                pieces = Integer.parseInt(System.console().readLine());
+                
+                System.out.print("Theme: ");
+                theme = System.console().readLine();
+            }
+        } catch (Exception e) {
+            System.out.println("\nCould not fetch set information. Please enter manually.");
+            
+            System.out.print("Set name: ");
+            setName = System.console().readLine();
+            
+            System.out.print("Number of pieces: ");
+            pieces = Integer.parseInt(System.console().readLine());
 
+            System.out.print("Theme: ");
+            theme = System.console().readLine();
+        }
+        
+        System.out.print("Price: ");
+        float price = Float.parseFloat(System.console().readLine());
+        
+        System.out.println("\nSet status:");
+        System.out.println("1) NOT STARTED");
+        System.out.println("2) IN PROGRESS");
+        System.out.println("3) COMPLETED");
+        System.out.print("Select status: ");
+        String statusChoice = System.console().readLine();
+        Status status;
+        status = switch (statusChoice) {
+            case "1" -> Status.NOT_STARTED;
+            case "2" -> Status.IN_PROGRESS;
+            case "3" -> Status.COMPLETED;
+            default -> Status.NOT_STARTED;
+        };
+
+        LegoSet newSet = new LegoSet(setNumber, setName, pieces, price, status, theme);
+        
+        System.out.print("\nWould you like to add minifigures to this set? (y/n): ");
+        String addMinifigs = System.console().readLine().toLowerCase();
+        if (addMinifigs.equals("y")) {
+            addMinifiguresToSet(newSet);
+        }
+
+        collection.sets.add(newSet);
+        
+        ArrayList<Collection> collections = fileManager.getData();
+        for (Collection c : collections) {
+            if (c.name.equals(collection.name)) {
+                c.sets = collection.sets;
+                break;
+            }
+        }
+        fileManager.saveData(collections);
+        
+        System.out.println("Set added successfully!");
+        manageCollection(collection);
+    }
+
+    private static void addMinifiguresToSet(LegoSet set) {
+        
     }
 
     private static void removeSetFromCollection(Collection collection) {
