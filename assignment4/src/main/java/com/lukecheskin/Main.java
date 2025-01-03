@@ -15,6 +15,10 @@ import com.lukecheskin.utils.RebrickableClient;
 public class Main {
     static FileManager fileManager = new FileManager();
 
+    /**
+     * Main entry point for the Lego Set Collection Manager application.
+     * Displays the main menu and handles user input for navigation between different features.
+     */
     public static void main(String[] args) {
 
         System.out.println("----- Lego Set Collection Manager -----");
@@ -38,6 +42,11 @@ public class Main {
         }
     }
 
+    /**
+     * Displays all available Lego collections and provides options for managing them.
+     * If no collections exist, initiates the collection creation workflow.
+     * Allows users to view, add, or remove collections.
+     */
     private static void displayCollections() {
         ArrayList<Collection> collections = fileManager.getData();
 
@@ -70,6 +79,10 @@ public class Main {
         }
     }
 
+    /**
+     * Handles the selection of a specific collection from the list.
+     * Validates user input and redirects to collection management if valid.
+     */
     private static void selectCollection() {
         ArrayList<Collection> collections = fileManager.getData();
         System.out.print("\nEnter collection number: ");
@@ -87,6 +100,12 @@ public class Main {
         }
     }
 
+    /**
+     * Displays and manages operations for a specific Lego collection.
+     * Provides options to add, remove, view, and filter sets within the collection.
+     * 
+     * @param collection The Collection object to manage
+     */
     private static void manageCollection(Collection collection) {
         System.out.println("\nManaging collection: " + collection.name);
         System.out.println("Sets in collection: " + collection.sets.size());
@@ -123,6 +142,13 @@ public class Main {
         }
     }
 
+    /**
+     * Handles the process of adding a new Lego set to a collection.
+     * Prompts for set details including number, name, pieces, price, theme, and status.
+     * Optionally allows adding minifigures to the set.
+     * 
+     * @param collection The Collection to add the new set to
+     */
     private static void addSetToCollection(Collection collection) {
         System.out.println("\nAdding new set to " + collection.name);
         
@@ -216,6 +242,12 @@ public class Main {
         manageCollection(collection);
     }
 
+    /**
+     * Adds minifigures to a Lego set through an interactive prompt.
+     * Allows multiple minifigures to be added until the user chooses to stop.
+     * 
+     * @param set The LegoSet to add minifigures to
+     */
     private static void addMinifiguresToSet(LegoSet set) {
         ArrayList<Minifigure> minifigures = new ArrayList<>();
         boolean addMore = true;
@@ -236,6 +268,12 @@ public class Main {
         set.setMinifigures(minifigures);
     }
 
+    /**
+     * Removes a specified Lego set from a collection.
+     * Updates the persistent storage after removal.
+     * 
+     * @param collection The Collection to remove the set from
+     */
     private static void removeSetFromCollection(Collection collection) {
         if (collection.sets.isEmpty()) {
             System.out.println("No sets to remove.");
@@ -268,6 +306,12 @@ public class Main {
         manageCollection(collection);
     }
 
+    /**
+     * Displays detailed information about a specific Lego set in the collection.
+     * Shows set number, name, theme, pieces, price, status, and any minifigures.
+     * 
+     * @param collection The Collection containing the set to view
+     */
     private static void viewSetDetails(Collection collection) {
         System.out.print("\nEnter set number (1-" + collection.sets.size() + "): ");
         try {
@@ -315,6 +359,13 @@ public class Main {
         manageCollection(collection);
     }
 
+    /**
+     * Edits the details of a specific Lego set within a collection.
+     * Allows editing name, pieces, price, status, and theme.
+     *
+     * @param collection The Collection containing the set to edit
+     * @param set The LegoSet to edit
+     */
     private static void editSetDetails(Collection collection, LegoSet set) {
         while (true) {
             System.out.println("\nEdit Set Details:");
@@ -411,6 +462,12 @@ public class Main {
         }
     }
 
+    /**
+     * Filters and displays sets in a collection that match a specified theme.
+     * The search is case-insensitive and supports partial matches.
+     *
+     * @param collection The Collection to filter sets from
+     */
     private static void filterSetsByTheme(Collection collection) {
         System.out.print("\nEnter theme to filter by: ");
         String theme = System.console().readLine();
@@ -435,6 +492,12 @@ public class Main {
         manageCollection(collection);
     }
 
+    /**
+     * Displays a prompt to the user asking for the new name for a collection.
+     * Updates the collection name in the persistent storage.
+     *
+     * @param collection The Collection to manage
+     */
     private static void editCollectionName(Collection collection) {
         System.out.println("\nCurrent collection name: " + collection.name);
         System.out.print("Enter new name: ");
@@ -458,6 +521,10 @@ public class Main {
         manageCollection(collection);
     }
 
+    /**
+     * Initiates the workflow for creating a new collection.
+     * Prompts for collection name and saves it to persistent storage.
+     */
     private static void startCreateCollectionWorkflow() {
         System.out.println("\nCreating a new collection..");
         System.out.print("Collection name: ");
@@ -475,6 +542,10 @@ public class Main {
         displayCollections();
     }
 
+    /**
+     * Removes a specified collection from the system.
+     * Updates the persistent storage after removal.
+     */
     private static void removeCollection() {
         ArrayList<Collection> collections = fileManager.getData();
         System.out.print("\nEnter collection number to remove: ");
@@ -498,6 +569,10 @@ public class Main {
         displayCollections();
     }
 
+    /**
+     * Performs a quick search across all collections for a specific set number.
+     * Displays which collection contains the matching set if found.
+     */
     private static void quickSearch() {
         ArrayList<Collection> collections = fileManager.getData();
         
@@ -531,6 +606,11 @@ public class Main {
         main(null);
     }
 
+    /**
+     * Exports all collection data to a CSV file named 'lego_collections.csv'.
+     * Includes collection name, set details, and minifigure information if present.
+     * Each minifigure creates a new row with the same set details.
+     */
     private static void exportToCSV() {
         ArrayList<Collection> collections = fileManager.getData();
         
