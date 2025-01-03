@@ -3,6 +3,7 @@ package com.lukecheskin;
 import java.util.ArrayList;
 
 import com.lukecheskin.classes.Collection;
+import com.lukecheskin.classes.LegoSet;
 import com.lukecheskin.utils.FileManager;
 
 public class Main {
@@ -84,7 +85,56 @@ public class Main {
         System.out.println("\nManaging collection: " + collection.name);
         System.out.println("Sets in collection: " + collection.sets.size());
 
-        // TODO: Complete this
+        if (!collection.sets.isEmpty()) {
+            System.out.println("\nCurrent sets:");
+            for (LegoSet set : collection.sets) {
+                String displayIndex = String.valueOf(collection.sets.indexOf(set) + 1);
+                System.out.println(displayIndex + ") " + set.name + " (#" + set.setNumber + ")");
+            }
+        }
+
+        System.out.println("\nOptions:");
+        System.out.println("1) Add new set");
+        System.out.println("2) Remove set");
+        System.out.println("3) View/edit set details");
+        System.out.println("4) Filter sets by theme");
+        System.out.println("5) Edit collection name");
+        System.out.println("6) Back to collections");
+        System.out.print("\nSelect an option: ");
+        String choice = System.console().readLine();
+
+        switch (choice) {
+            case "1" -> addSetToCollection(collection);
+            case "2" -> removeSetFromCollection(collection);
+            case "3" -> viewSetDetails(collection);
+            case "4" -> filterSetsByTheme(collection);
+            case "5" -> editCollectionName(collection);
+            case "6" -> displayCollections();
+            default -> {
+                System.out.println("Invalid option selected.");
+                manageCollection(collection);
+            }
+        }
+    }
+
+    private static void addSetToCollection(Collection collection) {
+
+    }
+
+    private static void removeSetFromCollection(Collection collection) {
+
+    }
+
+    private static void viewSetDetails(Collection collection) {
+
+    }
+
+    private static void filterSetsByTheme(Collection collection) {
+
+    }
+
+    private static void editCollectionName(Collection collection) {
+        
     }
 
     private static void startCreateCollectionWorkflow() {
