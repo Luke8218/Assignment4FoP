@@ -7,5 +7,19 @@ package com.lukecheskin.classes;
 public enum Status {
     COMPLETED,
     IN_PROGRESS,
-    NOT_STARTED
+    NOT_STARTED;
+
+    @Override
+    public String toString() {
+        switch (this) {
+            case COMPLETED:
+                return "Completed";
+            case IN_PROGRESS:
+                return "In Progress";
+            case NOT_STARTED:
+                return "Not Started";
+            default:
+                return "Unknown";
+        }
+    }
 }
