@@ -325,6 +325,13 @@ public class Main {
                 System.out.println("Pieces: " + set.pieces);
                 System.out.println("Price: £" + set.price);
                 System.out.println("Status: " + set.status);
+
+                if (set.minifigures != null && !set.minifigures.isEmpty()) {
+                    System.out.println("Minifigures:");
+                    for (Minifigure fig : set.minifigures) {
+                        System.out.println("- " + fig.name + " (" + fig.description + ")");
+                    }
+                }
                 
                 System.out.println("\nOptions:");
                 System.out.println("1) Edit set details");
@@ -338,13 +345,6 @@ public class Main {
                     default -> {
                         System.out.println("Invalid option selected.");
                         viewSetDetails(collection);
-                    }
-                }
-                
-                if (set.minifigures != null && !set.minifigures.isEmpty()) {
-                    System.out.println("\nMinifigures:");
-                    for (Minifigure fig : set.minifigures) {
-                        System.out.println("- " + fig.name + ": " + fig.description);
                     }
                 }
             } else {
