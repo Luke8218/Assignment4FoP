@@ -24,7 +24,7 @@ fig1.add_trace(go.Scatter(
     x=df['Pieces'], 
     y=df['Price'], 
     mode='markers', 
-    name="",
+    name="Price vs Pieces",
     text=[f"Set: {name}<br>Cost per piece: £{cpp:.2f}" for name, cpp in zip(df['Name'], df['Cost_Per_Piece'])],
     hovertemplate="%{text}<br>" +
                   "Pieces: %{x}<br>" +
