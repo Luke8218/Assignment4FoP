@@ -80,6 +80,89 @@ Collection,      SetNumber, Name,                Theme,          Pieces, Price, 
 
 > **Note:** Sets with several minifigures will have separate rows, with `Minifigure Name` and `Minifigure Description` varying accordingly.
 
+## Class Diagram
+
+The diagram below shows the structure and relationships of the main classes in the application. The `Main` class is the entry point and  with `Collection`, `FileManager`, and `RebrickableClient`. Each `Collection` contains multiple `LegoSet` objects, which in turn can have multiple `Minifigure` objects. The `Status` enum is used by `LegoSet` to represent the build status of a set.
+
+```mermaid
+classDiagram
+    Main --> Collection
+    Main --> FileManager
+    Main --> RebrickableClient
+    Collection --> LegoSet
+    LegoSet --> Minifigure
+    LegoSet --> Status
+    FileManager --> Collection
+
+    class Main {
+        FileManager fileManager$
+        -displayCollections()
+        -selectCollection()
+        -manageCollection(Collection)
+        -addSetToCollection(Collection)
+        -addMinifiguresToSet(LegoSet)
+        -removeSetFromCollection(Collection)
+        -viewSetDetails(Collection)
+        -editSetDetails(Collection, LegoSet)
+        -filterSetsByTheme(Collection)
+        -editCollectionName(Collection)
+        -startCreateCollectionWorkflow()
+        -removeCollection()
+        -quickSearch()
+        -exportToCSV()
+    }
+
+    class Collection {
+        +String name
+        +ArrayList<LegoSet> sets
+
+        +Collection(String name)
+    }
+
+    class LegoSet {
+        +String setNumber
+        +String name
+        +int pieces
+        +float price
+        +Status status
+        +String theme
+        +ArrayList<Minifigure> minifigures
+        +LegoSet(String, String, int, float, Status, String)
+        +getMinifigures()
+        +setMinifigures(ArrayList<Minifigure>)
+    }
+
+    class Minifigure {
+        +String name
+        +String description
+        +Minifigure(String, String)
+    }
+
+    class Status {
+        <<enumeration>>
+        NOT_STARTED
+        IN_PROGRESS
+        COMPLETED
+    }
+
+    class FileManager {
+        -String DATA_FILE_PATH$
+        +ArrayList<Collection> getData()
+        +saveData(ArrayList<Collection>)
+        +FileManager()
+    }
+
+    class RebrickableClient {
+        -String API_KEY$
+        -String SETS_URL$
+        -String THEMES_URL$
+        -HttpClient httpClient
+        +JsonObject getSetInfo(String setNumber)
+        +JsonObject getThemeInfo(int themeId)
+        +RebrickableClient()
+    }
+```
+
 ## Usage Guide
 
 ### Viewing collections
