@@ -16,9 +16,20 @@ fig1 = make_subplots(rows=2, cols=2, subplot_titles=("Sets by Theme", "Price vs 
 theme_counts = df['Theme'].value_counts()
 fig1.add_trace(go.Bar(x=theme_counts.index, y=theme_counts.values, name="Sets by Theme"), row=1, col=1)
 
+# Calculate cost per piece
+df['Cost_Per_Piece'] = (df['Price'] / df['Pieces']).round(2)
+
 # Price vs Pieces
-fig1.add_trace(go.Scatter(x=df['Pieces'], y=df['Price'], mode='markers', name="Price vs Pieces", 
-                         text=df['Name'], hoverinfo='text+x+y'), row=1, col=2)
+fig1.add_trace(go.Scatter(
+    x=df['Pieces'], 
+    y=df['Price'], 
+    mode='markers', 
+    name="",
+    text=[f"Set: {name}<br>Cost per piece: £{cpp:.2f}" for name, cpp in zip(df['Name'], df['Cost_Per_Piece'])],
+    hovertemplate="%{text}<br>" +
+                  "Pieces: %{x}<br>" +
+                  "Price: £%{y:.2f}",
+), row=1, col=2)
 
 # Collection Status
 status_counts = df['Status'].value_counts()
