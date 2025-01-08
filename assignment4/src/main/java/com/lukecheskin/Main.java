@@ -51,6 +51,7 @@ public class Main {
         ArrayList<Collection> collections = fileManager.getData();
 
         if (collections.isEmpty()) {
+            System.out.println("The data file is empty. Please add some collections first.");
             startCreateCollectionWorkflow();
         } else {
             System.out.println("Collections found: " + collections.size());
@@ -577,6 +578,7 @@ public class Main {
         ArrayList<Collection> collections = fileManager.getData();
         
         if (collections.isEmpty()) {
+            System.out.println("The data file is empty. Please add some collections first.");
             System.out.print("\nPress Enter to continue...");
             System.console().readLine();
             main(null);
@@ -615,6 +617,7 @@ public class Main {
         ArrayList<Collection> collections = fileManager.getData();
         
         if (collections.isEmpty()) {
+            System.out.println("The data file is empty. Please add some collections first.");
             main(null);
             return;
         }

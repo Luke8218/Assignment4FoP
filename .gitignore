@@ -1,3 +1,4 @@
 target/
 data.json
 lego_collections.csv
+**/.DS_Store

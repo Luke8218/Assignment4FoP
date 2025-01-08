@@ -17,7 +17,7 @@ import com.lukecheskin.classes.Collection;
  */
 public class FileManager {
 
-    private static final String DATA_FILE_PATH = "assignment4/src/main/java/com/lukecheskin/data.json";
+    private static final String DATA_FILE_PATH = "./data.json";
     
     /**
      * Retrieves all collections from the persistent storage.
@@ -32,7 +32,6 @@ public class FileManager {
             // Read JSON file
             File file = new File(DATA_FILE_PATH);
             if (!file.exists() || file.length() == 0) {
-                System.out.println("The data file is empty. Please add some collections first.");
                 return collections;
             }
 
