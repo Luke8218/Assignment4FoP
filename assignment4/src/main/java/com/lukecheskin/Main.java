@@ -355,8 +355,6 @@ public class Main {
             System.out.println("Invalid input. Please enter a number.");
         }
         
-        System.out.print("\nPress Enter to continue...");
-        System.console().readLine();
         manageCollection(collection);
     }
 
@@ -488,8 +486,6 @@ public class Main {
             System.out.println("No sets found with the specified theme.");
         }
         
-        System.out.print("\nPress Enter to continue...");
-        System.console().readLine();
         manageCollection(collection);
     }
 
@@ -579,8 +575,6 @@ public class Main {
         
         if (collections.isEmpty()) {
             System.out.println("The data file is empty. Please add some collections first.");
-            System.out.print("\nPress Enter to continue...");
-            System.console().readLine();
             main(null);
             return;
         }
@@ -603,8 +597,6 @@ public class Main {
             System.out.println("No sets found with set number: " + setNumber);
         }
         
-        System.out.print("\nPress Enter to continue...");
-        System.console().readLine();
         main(null);
     }
 
@@ -647,8 +639,6 @@ public class Main {
             System.out.println("\nError exporting to CSV: " + e.getLocalizedMessage());
         }
         
-        System.out.print("\nPress Enter to continue...");
-        System.console().readLine();
         main(null);
     }
 }
