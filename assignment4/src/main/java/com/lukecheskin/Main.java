@@ -16,12 +16,12 @@ public class Main {
     static FileManager fileManager = new FileManager();
 
     /**
-     * Main entry point for the Lego Set Collection Manager application.
+     * Main entry point for the LEGO Set Collection Manager application.
      * Displays the main menu and handles user input for navigation between different features.
      */
     public static void main(String[] args) {
 
-        System.out.println("----- Lego Set Collection Manager -----");
+        System.out.println("----- LEGO Set Collection Manager -----");
         System.out.println("                                       ");
 
         System.out.println("Options:");
@@ -43,7 +43,7 @@ public class Main {
     }
 
     /**
-     * Displays all available Lego collections and provides options for managing them.
+     * Displays all available LEGO collections and provides options for managing them.
      * If no collections exist, initiates the collection creation workflow.
      * Allows users to view, add, or remove collections.
      */
@@ -101,7 +101,7 @@ public class Main {
     }
 
     /**
-     * Displays and manages operations for a specific Lego collection.
+     * Displays and manages operations for a specific LEGO collection.
      * Provides options to add, remove, view, and filter sets within the collection.
      * 
      * @param collection The Collection object to manage
@@ -143,7 +143,7 @@ public class Main {
     }
 
     /**
-     * Handles the process of adding a new Lego set to a collection.
+     * Handles the process of adding a new LEGO set to a collection.
      * Prompts for set details including number, name, pieces, price, theme, and status.
      * Optionally allows adding minifigures to the set.
      * 
@@ -243,7 +243,7 @@ public class Main {
     }
 
     /**
-     * Adds minifigures to a Lego set through an interactive prompt.
+     * Adds minifigures to a LEGO set through an interactive prompt.
      * Allows multiple minifigures to be added until the user chooses to stop.
      * 
      * @param set The LegoSet to add minifigures to
@@ -269,7 +269,7 @@ public class Main {
     }
 
     /**
-     * Removes a specified Lego set from a collection.
+     * Removes a specified LEGO set from a collection.
      * Updates the persistent storage after removal.
      * 
      * @param collection The Collection to remove the set from
@@ -307,7 +307,7 @@ public class Main {
     }
 
     /**
-     * Displays detailed information about a specific Lego set in the collection.
+     * Displays detailed information about a specific LEGO set in the collection.
      * Shows set number, name, theme, pieces, price, status, and any minifigures.
      * 
      * @param collection The Collection containing the set to view
@@ -360,7 +360,7 @@ public class Main {
     }
 
     /**
-     * Edits the details of a specific Lego set within a collection.
+     * Edits the details of a specific LEGO set within a collection.
      * Allows editing name, pieces, price, status, and theme.
      *
      * @param collection The Collection containing the set to edit

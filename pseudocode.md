@@ -13,8 +13,8 @@ collections.add(newCollection)
 ```
 collections = [...]
 
-if (collections.contains("Luke's Lego Collection")) then
-    return collections["Luke's Lego Collection"]
+if (collections.contains("Luke's LEGO Collection")) then
+    return collections["Luke's LEGO Collection"]
 else
     return error("Collection not found")
 ```
@@ -31,7 +31,7 @@ newSet = LegoSet(
     minifigures
 )
 
-collection["Luke's Lego Collection"].addSet(newSet)
+collection["Luke's LEGO Collection"].addSet(newSet)
 ```
 
 ### Save collection data to storage

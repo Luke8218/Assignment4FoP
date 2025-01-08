@@ -1,4 +1,4 @@
-# Lego Set Collection Manager
+# LEGO Set Collection Manager
 
 This assignment project allows users to manage and organise LEGO collections. Users can create and manage multiple LEGO collections, track individual sets, and maintain information about minifigures.
 
@@ -213,7 +213,7 @@ classDiagram
    ```
    python3 stats.py
    ```
-3. The script will generate visualisations of your Lego collection data.
+3. The script will generate visualisations of your LEGO collection data.
 
 ## Troubleshooting
 
